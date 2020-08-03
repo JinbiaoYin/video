@@ -68,3 +68,6 @@ friendUserId是好友的主键id
 }
 ```
 
+## WebService模块
+查询手机号归属地	GET:	/webservice/phone?phone=1889533
+
