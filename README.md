@@ -1,6 +1,13 @@
 # video
 以视频播放为主要业务的练习项目，包含其它可以用到的技术等。如工作流，es，netty，ci等
 
+## 分支说明
+master为主分支，代码基本稳定。**二次开发，均采用本分支为基础版本。**
+
+dev开发到activiti工作流，暂停开发，未来将会开发完毕后合并到master后删除。
+
+chorain为直播平台demo。加入了thymeleaf用来做demo,未来可能会将部分代码添加到master后，删除此分支。
+
 ## 包管理
 - biz 中为业务代码
   - article 文章的代码：demo，未开发完。
