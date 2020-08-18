@@ -11,7 +11,7 @@ import top.yinjinbiao.video.common.util.SpringUtil;
 @EnableSwagger2
 @SpringBootApplication
 @MapperScan(basePackages = {"top.yinjinbiao.video.admin.mapper","top.yinjinbiao.video.upload.mapper", "top.yinjinbiao.video.biz.chat.mapper"})
-class VideoApplication {
+public class VideoApplication {
 	
 	@Bean
 	public SpringUtil getSpringUtil() {
