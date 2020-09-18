@@ -16,7 +16,7 @@
     <result column="create_by" jdbcType="BIGINT" property="createBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
-    <result column="is_delete" jdbcType="BIT" property="delete" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -25,7 +25,7 @@
       This element was generated on Mon Jun 08 15:02:56 CST 2020.
     -->
     `id`, `send_user_id`, `accept_user_id`, `msg`, `read_flag`, `create_time`, `create_by`, 
-    `update_time`, `update_by`, `is_delete`
+    `update_time`, `update_by`, `is_deleted`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -56,11 +56,11 @@
     insert into biz_chat_record (`send_user_id`, `accept_user_id`, 
       `msg`, `read_flag`, `create_time`, 
       `create_by`, `update_time`, `update_by`, 
-      `is_delete`)
+      `is_deleted`)
     values (#{sendUserId,jdbcType=BIGINT}, #{acceptUserId,jdbcType=BIGINT}, 
       #{msg,jdbcType=VARCHAR}, #{readFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, 
-      #{delete,jdbcType=BIT})
+      #{deleted,jdbcType=BIT})
       
       
   </insert>
@@ -99,8 +99,8 @@
       <if test="updateBy != null">
         `update_by`,
       </if>
-      <if test="delete != null">
-        `is_delete`,
+      <if test="deleted != null">
+        `is_deleted`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -131,8 +131,8 @@
       <if test="updateBy != null">
         #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -168,8 +168,8 @@
       <if test="updateBy != null">
         `update_by` = #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        `is_delete` = #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        `is_deleted` = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
@@ -189,7 +189,7 @@
       `create_by` = #{createBy,jdbcType=BIGINT},
       `update_time` = #{updateTime,jdbcType=TIMESTAMP},
       `update_by` = #{updateBy,jdbcType=BIGINT},
-      `is_delete` = #{delete,jdbcType=BIT}
+      `is_deleted` = #{deleted,jdbcType=BIT}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
     <update id="updateMsgSignedById" parameterType="java.util.List">
@@ -209,6 +209,6 @@
    from biz_chat_record
    where accept_user_id = #{acceptUserId,jdbcType=BIGINT}
    	and read_flag = 0
-	and is_delete = 0
+	and is_deleted = 0
  </select>
 </mapper>

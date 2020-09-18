@@ -14,12 +14,12 @@
     <result column="create_by" jdbcType="BIGINT" property="createBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
-    <result column="is_delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
 
     `id`, `my_user_id`, `friend_user_id`, `create_time`, `create_by`, `update_time`, 
-    `update_by`, `is_delete`
+    `update_by`, `is_deleted`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -34,10 +34,10 @@
   <insert id="insert" parameterType="top.yinjinbiao.video.domain.BizFriendship">
     insert into biz_friendship (`id`, `my_user_id`, `friend_user_id`, 
       `create_time`, `create_by`, `update_time`, 
-      `update_by`, `is_delete`)
+      `update_by`, `is_deleted`)
     values (#{id,jdbcType=BIGINT}, #{myUserId,jdbcType=BIGINT}, #{friendUserId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=BIGINT}, #{delete,jdbcType=BIT})
+      #{updateBy,jdbcType=BIGINT}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="top.yinjinbiao.video.domain.BizFriendship">
     insert into biz_friendship
@@ -63,8 +63,8 @@
       <if test="updateBy != null">
         `update_by`,
       </if>
-      <if test="delete != null">
-        `is_delete`,
+      <if test="deleted != null">
+        `is_deleted`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,8 +89,8 @@
       <if test="updateBy != null">
         #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -120,8 +120,8 @@
       <if test="updateBy != null">
         `update_by` = #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        `is_delete` = #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        `is_deleted` = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
@@ -139,7 +139,7 @@
       `create_by` = #{createBy,jdbcType=BIGINT},
       `update_time` = #{updateTime,jdbcType=TIMESTAMP},
       `update_by` = #{updateBy,jdbcType=BIGINT},
-      `is_delete` = #{delete,jdbcType=BIT}
+      `is_deleted` = #{deleted,jdbcType=BIT}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
    <select id="findMyFriendsById" parameterType="java.lang.Long" resultType="top.yinjinbiao.video.domain.vo.SysUserVO">
@@ -154,7 +154,7 @@
 	WHERE
 		t.id = a.friend_user_id
 	AND a.my_user_id = #{id,jdbcType=BIGINT}
-	AND a.is_delete = 0;
+	AND a.is_deleted = 0;
   </select>
   <select id="findByMyUserIdAndFriendUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     SELECT
@@ -164,6 +164,6 @@
 	WHERE
 		my_user_id = #{myUserId,jdbcType=BIGINT}
 	AND friend_user_id = #{friendUserId,jdbcType=BIGINT}
-	AND is_delete = 0;
+	AND is_deleted = 0;
   </select> 
 </mapper>

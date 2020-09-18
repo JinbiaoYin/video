@@ -9,11 +9,11 @@
     <result column="create_by" jdbcType="BIGINT" property="createBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
-    <result column="is_delete" jdbcType="BIT" property="delete" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     `id`, `send_user_id`, `accept_user_id`, `create_time`, `create_by`, `update_time`, 
-    `update_by`, `is_delete`
+    `update_by`, `is_deleted`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -28,10 +28,10 @@
   <insert id="insert" parameterType="top.yinjinbiao.video.domain.BizFriendRequest">
     insert into biz_friend_request (`id`, `send_user_id`, `accept_user_id`, 
       `create_time`, `create_by`, `update_time`, 
-      `update_by`, `is_delete`)
+      `update_by`, `is_deleted`)
     values (#{id,jdbcType=BIGINT}, #{sendUserId,jdbcType=BIGINT}, #{acceptUserId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=BIGINT}, #{delete,jdbcType=BIT})
+      #{updateBy,jdbcType=BIGINT}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="top.yinjinbiao.video.domain.BizFriendRequest">
     insert into biz_friend_request
@@ -57,8 +57,8 @@
       <if test="updateBy != null">
         `update_by`,
       </if>
-      <if test="delete != null">
-        `is_delete`,
+      <if test="deleted != null">
+        `is_deleted`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -83,8 +83,8 @@
       <if test="updateBy != null">
         #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -109,8 +109,8 @@
       <if test="updateBy != null">
         `update_by` = #{updateBy,jdbcType=BIGINT},
       </if>
-      <if test="delete != null">
-        `is_delete` = #{delete,jdbcType=BIT},
+      <if test="deleted != null">
+        `is_deleted` = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
@@ -123,7 +123,7 @@
       `create_by` = #{createBy,jdbcType=BIGINT},
       `update_time` = #{updateTime,jdbcType=TIMESTAMP},
       `update_by` = #{updateBy,jdbcType=BIGINT},
-      `is_delete` = #{delete,jdbcType=BIT}
+      `is_deleted` = #{deleted,jdbcType=BIT}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
   <select id="findByAcceptUserId" parameterType="java.lang.Long" resultType="SysUserVO">
@@ -138,8 +138,8 @@
 	WHERE
 		t.send_user_id = a.id
 	AND t.accept_user_id = #{acceptUserId,jdbcType=BIGINT}
-	AND t.is_delete = 0
-	AND a.is_delete = 0
+	AND t.is_deleted = 0
+	AND a.is_deleted = 0
   </select>
   <select id="findBySendUserIdAndAcceptUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
 	    SELECT
@@ -149,6 +149,6 @@
 		WHERE
 			send_user_id = #{sendUserId,jdbcType=BIGINT}
 		AND accept_user_id = #{acceptUserId,jdbcType=BIGINT}
-		AND is_delete = 0
+		AND is_deleted = 0
   </select> 
 </mapper>

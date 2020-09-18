@@ -26,6 +26,6 @@ public class BaseDomain implements Serializable {
     @UpdateBy
     private Long updateBy;
 
-    @Delete
-    private Boolean delete;
+    @Deleted
+    private Boolean deleted;
 }

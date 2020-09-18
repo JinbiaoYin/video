@@ -15,7 +15,7 @@
         <result column="create_by" jdbcType="BIGINT" property="createBy" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
         <result column="update_by" jdbcType="BIGINT" property="updateBy" />
-        <result column="is_delete" jdbcType="TINYINT" property="delete" />
+        <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
     </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -24,7 +24,7 @@
       This element was generated on Tue Jun 16 16:06:34 CST 2020.
     -->
     `id`, `username`, `password`, `nickname`, `face_img`, `create_time`, `create_by`, 
-    `update_time`, `update_by`, `is_delete`
+    `update_time`, `update_by`, `is_deleted`
   </sql>
     
     
@@ -54,9 +54,9 @@
         AND a.role_id = b.role_id
         AND b.permission_id = c.id
         AND t.username = #{username}
-        AND t.is_delete = 0
-        AND d.is_delete = 0
-        AND c.is_delete = 0
+        AND t.is_deleted = 0
+        AND d.is_deleted = 0
+        AND c.is_deleted = 0
     </select>
 
     <select id="findByUsername" parameterType="String" resultMap="BaseResultMap">
@@ -66,7 +66,7 @@
             sys_user t
         WHERE
             t.username = #{username}
-        AND t.is_delete = 0
+        AND t.is_deleted = 0
     </select>
     
     <update id="updateByPrimaryKeySelective" parameterType="top.yinjinbiao.video.domain.SysUser">
@@ -102,7 +102,7 @@
         `update_by` = #{updateBy,jdbcType=BIGINT},
       </if>
       <if test="isDelete != null">
-        `is_delete` = #{isDelete,jdbcType=BIT},
+        `is_deleted` = #{isDelete,jdbcType=BIT},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}

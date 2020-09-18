@@ -60,7 +60,7 @@ public class BaseColumnInterceptor implements Interceptor {
                     field.setAccessible(true);
                     field.set(parameter, UserLocalUtil.getCurrentUserId());
                 }
-            } else if (field.getAnnotation(Delete.class) != null) {
+            } else if (field.getAnnotation(Deleted.class) != null) {
                 if(SqlCommandType.INSERT.equals(sqlCommandType)){
                     field.setAccessible(true);
                     field.set(parameter, false);

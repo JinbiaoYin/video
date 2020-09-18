@@ -12,11 +12,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, original_name, current_name, url, create_by, create_time, update_by, update_time, is_delete
+    id, original_name, current_name, url, create_by, create_time, update_by, update_time, is_deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -34,10 +34,10 @@
     <!--@mbg.generated-->
     insert into sys_file (original_name, current_name, url, create_by,
       create_time, update_by, update_time, 
-      is_delete)
+      is_deleted)
     values (#{originalName,jdbcType=VARCHAR}, #{currentName,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createBy,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{delete,jdbcType=BOOLEAN})
+      #{deleted,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.yinjinbiao.video.domain.SysFile" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -64,8 +64,8 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="delete != null">
-        is_delete,
+      <if test="deleted != null">
+        is_deleted,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -90,8 +90,8 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="delete != null">
-        #{delete,jdbcType=BOOLEAN},
+      <if test="deleted != null">
+        #{deleted,jdbcType=BOOLEAN},
       </if>
     </trim>
   </insert>
@@ -120,8 +120,8 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="delete != null">
-        is_delete = #{delete,jdbcType=BOOLEAN},
+      <if test="deleted != null">
+        is_deleted = #{deleted,jdbcType=BOOLEAN},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -136,7 +136,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_by = #{updateBy,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_delete = #{delete,jdbcType=BOOLEAN}
+      is_deleted = #{deleted,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <delete id="deleteByCurrentName" parameterType="java.lang.String">
