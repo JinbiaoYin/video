@@ -5,14 +5,15 @@ import org.apache.ibatis.session.ExecutorType;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.yinjinbiao.video.common.interceptor.BaseColumnInterceptor;
+
+import top.yinjinbiao.video.common.interceptor.BaseDomainInterceptor;
 
 @Configuration
 public class MybatisConfiguration {
 
     @Bean
-    public BaseColumnInterceptor dateTimeInterceptor() {
-        return new BaseColumnInterceptor();
+    public BaseDomainInterceptor baseDomainInterceptor() {
+        return new BaseDomainInterceptor();
     }
 
     @Bean
@@ -42,7 +43,7 @@ public class MybatisConfiguration {
 
 
                 // 注册时间注解拦截器到mybatis
-                configuration.addInterceptor(dateTimeInterceptor());
+                configuration.addInterceptor(baseDomainInterceptor());
             }
         };
     }

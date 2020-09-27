@@ -1,19 +1,27 @@
 package top.yinjinbiao.video.common.interceptor;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.util.Properties;
+
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.ibatis.plugin.*;
-import top.yinjinbiao.video.common.annotation.*;
-import top.yinjinbiao.video.common.util.UserLocalUtil;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
+import org.apache.ibatis.plugin.Signature;
 
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.Properties;
+import top.yinjinbiao.video.common.annotation.CreateBy;
+import top.yinjinbiao.video.common.annotation.CreateTime;
+import top.yinjinbiao.video.common.annotation.Deleted;
+import top.yinjinbiao.video.common.annotation.UpdateBy;
+import top.yinjinbiao.video.common.annotation.UpdateTime;
 
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class,
         Object.class})})
-public class BaseColumnInterceptor implements Interceptor {
+public class BaseDomainInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -29,39 +37,39 @@ public class BaseColumnInterceptor implements Interceptor {
         // 获取成员变量
         Field[] declaredFields = parameter.getClass().getSuperclass().getDeclaredFields();
 
+        boolean inserted = SqlCommandType.INSERT.equals(sqlCommandType);
+        boolean updated= SqlCommandType.UPDATE.equals(sqlCommandType);
         for (Field field : declaredFields) {
             if (field.getAnnotation(CreateTime.class) != null) {
-                if (SqlCommandType.INSERT.equals(sqlCommandType)) {
+                if (inserted) {
                     // insert语句插入createTime
                     field.setAccessible(true);
                     // 这里设置时间，当然时间格式可以自定。比如转成String类型
-                    field.set(parameter, new Date());
+                    field.set(parameter, LocalDateTime.now());
                 }
             } else if (field.getAnnotation(UpdateTime.class) != null) {
 
-                if (SqlCommandType.INSERT.equals(sqlCommandType)
-                        || SqlCommandType.UPDATE.equals(sqlCommandType)) {
+                if (inserted || updated) {
                     // insert 或update语句插入updateTime
                     field.setAccessible(true);
-                    field.set(parameter, new Date());
+                    field.set(parameter, LocalDateTime.now());
                 }
             } else if (field.getAnnotation(CreateBy.class) != null) {
-                if (SqlCommandType.INSERT.equals(sqlCommandType)) {
+                if (inserted) {
                     // insert语句插入CreatedBy
                     field.setAccessible(true);
                     // 这里设置登陆人
-                    field.set(parameter, UserLocalUtil.getCurrentUserId());
+                    field.set(parameter, -1L);
                 }
             } else if (field.getAnnotation(UpdateBy.class) != null) {
 
-                if (SqlCommandType.INSERT.equals(sqlCommandType)
-                        || SqlCommandType.UPDATE.equals(sqlCommandType)) {
+                if (inserted || updated) {
                     // insert 或update语句插入更新人
                     field.setAccessible(true);
-                    field.set(parameter, UserLocalUtil.getCurrentUserId());
+                    field.set(parameter, -1L);
                 }
             } else if (field.getAnnotation(Deleted.class) != null) {
-                if(SqlCommandType.INSERT.equals(sqlCommandType)){
+                if(inserted){
                     field.setAccessible(true);
                     field.set(parameter, false);
                 }
