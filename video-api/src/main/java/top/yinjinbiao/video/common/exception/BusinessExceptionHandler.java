@@ -31,13 +31,12 @@ public class BusinessExceptionHandler {
             error.put("message", ex.getMessage());
             log.warn("[全局业务异常]\r\n业务编码：{}\r\n异常记录：{}", error.get("code"), error.get("message"));
         }
-
         // 未知错误
         else {
             error.put("code", ResponseCode.UNKNOWN.code());
             error.put("message", ResponseCode.UNKNOWN.message());
-            log.error(ex.getMessage());
         }
+        ex.printStackTrace();
 
         return new ResponseEntity<>(error, HttpStatus.OK);
     }

@@ -37,3 +37,11 @@ oss:
   bucketName: top-yinjinbiao-video
   bucket-endpoint: https://top-yinjinbiao-video.oss-cn-beijing.aliyuncs.com/
 
+# oauth2
+business:
+  oauth2:
+    grant_type: password
+    client_id: client
+    client_secret: 123456
+    access_token_uri: http://localhost:8080/video/oauth/token
+

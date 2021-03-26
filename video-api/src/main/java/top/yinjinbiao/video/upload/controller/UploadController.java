@@ -20,12 +20,12 @@ public class UploadController {
 
     @PostMapping("/upload")
     public ResponseResult<String> upload(MultipartFile file) throws IOException {
-        return new ResponseResult<String>(HttpStatus.OK.value(),"上传成功",uploadService.upload(file.getOriginalFilename(),file.getBytes()));
+        return new ResponseResult<>(HttpStatus.OK.value(),"上传成功",uploadService.upload(file.getOriginalFilename(),file.getBytes()));
     }
 
     @PostMapping("/delete")
-    public ResponseResult<Integer> delete(Long id) throws IOException {
-        return new ResponseResult<Integer>(HttpStatus.OK.value(),"删除成功",uploadService.delete(id));
+    public ResponseResult<Integer> delete(Long id) {
+        return new ResponseResult<>(HttpStatus.OK.value(),"删除成功",uploadService.delete(id));
     }
 
 
