@@ -1,7 +1,9 @@
 package top.yinjinbiao.video.admin.controller;
 
+import cn.hutool.http.HttpUtil;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.yinjinbiao.video.common.dto.ResponseResult;
 import top.yinjinbiao.video.common.enums.ResponseCode;
+import top.yinjinbiao.video.common.util.MapperUtils;
 import top.yinjinbiao.video.domain.bo.LoginParam;
+import top.yinjinbiao.video.domain.dto.Oauth2Result;
 
 import java.util.Map;
 
@@ -46,7 +50,7 @@ public class LoginController {
         // 封装返回的结果集
         Map<String, Object> result = Maps.newHashMap();
         // 通过 HTTP 客户端请求登录接口
-        Map<String, String> params = Maps.newHashMap();
+        Map<String, Object> params = Maps.newHashMap();
         params.put("username", loginParam.getUsername());
         params.put("password", loginParam.getPassword());
         params.put("grant_type", oauth2GrantType);
@@ -55,15 +59,19 @@ public class LoginController {
 
         try {
             // 解析响应结果封装并返回
-//            Response response = OkHttpClientUtil.getInstance().postData(accessTokenURI, params);
-//            String jsonString = Objects.requireNonNull(response.body()).string();
-//            Token token = MapperUtils.json2pojo(jsonString, Token.class);
-//            result.put("token", token.getAccess_token());
+            String jsonString = HttpUtil.post(accessTokenURI, params);
+            Oauth2Result oauth2Result = MapperUtils.json2pojo(jsonString, Oauth2Result.class);
+            result.put("token",oauth2Result.getAccess_token());
+            if(StringUtils.isNotBlank(oauth2Result.getError())){
+                log.warn("登录失败: error = {} , error_description = {}", oauth2Result.getError(), oauth2Result.getError_description());
+                return new ResponseResult(ResponseCode.USER_LOGIN_ERROR.code(), ResponseCode.USER_LOGIN_ERROR.message());
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseResult<Map<String, Object>>(ResponseCode.USER_LOGIN_ERROR.code(), ResponseCode.USER_LOGIN_ERROR.message());
+            log.error("登录方法错误: ",e);
+            return new ResponseResult(ResponseCode.USER_LOGIN_ERROR.code(), ResponseCode.USER_LOGIN_ERROR.message());
         }
-        return new ResponseResult<Map<String, Object>>(ResponseCode.SUCCESS.code(), ResponseCode.SUCCESS.message(), result);
+        return new ResponseResult(ResponseCode.SUCCESS.code(), ResponseCode.SUCCESS.message(), result);
     }
 
 

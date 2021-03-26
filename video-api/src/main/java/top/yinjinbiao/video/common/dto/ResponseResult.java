@@ -64,11 +64,11 @@ public class ResponseResult<T> implements Serializable {
         this.data = data;
     }
 
-    public Integer getState() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setState(Integer code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
