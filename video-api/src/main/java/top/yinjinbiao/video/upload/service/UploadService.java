@@ -10,7 +10,7 @@ public interface UploadService {
      * @param originalFilename 文件原名称
      * @param data 文件二进制数据
      */
-    public String upload(String originalFilename,byte[] data);
+    String upload(String originalFilename,byte[] data);
 
 
     /**
@@ -18,7 +18,7 @@ public interface UploadService {
      * @param id 文件标识符
      * @return
      */
-    public int delete(String id);
+    int delete(Long id);
 
 
 }

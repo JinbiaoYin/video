@@ -24,8 +24,8 @@ public class UploadController {
     }
 
     @PostMapping("/delete")
-    public ResponseResult<Integer> delete(String key) throws IOException {
-        return new ResponseResult<Integer>(HttpStatus.OK.value(),"删除成功",uploadService.delete(key));
+    public ResponseResult<Integer> delete(Long id) throws IOException {
+        return new ResponseResult<Integer>(HttpStatus.OK.value(),"删除成功",uploadService.delete(id));
     }
 
 
