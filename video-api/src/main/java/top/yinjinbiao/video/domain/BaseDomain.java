@@ -1,7 +1,8 @@
-package top.yinjinbiao.video.common.domain;
+package top.yinjinbiao.video.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
-import top.yinjinbiao.video.common.annotation.*;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,18 +15,15 @@ public class BaseDomain implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@CreateTime
+	@CreatedBy
     private Date createTime;
 
-    @UpdateTime
     private Date updateTime;
 
-    @CreateBy
     private Long createBy;
 
-    @UpdateBy
     private Long updateBy;
 
-    @Deleted
+    @TableField("is_deleted")
     private Boolean deleted;
 }

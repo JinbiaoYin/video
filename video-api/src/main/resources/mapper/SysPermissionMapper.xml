@@ -13,15 +13,6 @@
         <result column="update_by" jdbcType="BIGINT" property="updateBy" />
         <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
     </resultMap>
-    
-    <select id="list" resultType="SysPermission">
-        SELECT
-            t.*
-        FROM
-            sys_permission t
-        WHERE
-        	t.is_deleted = 0
-    </select>
 
 
 </mapper>

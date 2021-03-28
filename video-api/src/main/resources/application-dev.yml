@@ -27,10 +27,14 @@ spring:
       pool:
         max-active: 100
 
-mybatis:
-  type-aliases-package: top.yinjinbiao.video.domain
-  mapper-locations: classpath:mapper/*.xml
-  
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: top.yinjinbiao.video.domain
+  global-config:
+    db-config:
+      id-type: auto
+
 # 阿里云对象存储地址
 oss:
   endpoint: http://oss-cn-beijing.aliyuncs.com

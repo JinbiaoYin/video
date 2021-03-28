@@ -5,6 +5,9 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import top.yinjinbiao.video.common.dto.ResponseResult;
 import top.yinjinbiao.video.common.enums.ResponseCode;
 import top.yinjinbiao.video.common.util.MapperUtils;
-import top.yinjinbiao.video.domain.bo.LoginParam;
 import top.yinjinbiao.video.domain.dto.Oauth2Result;
+import top.yinjinbiao.video.domain.query.LoginParam;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +50,18 @@ public class LoginController {
      * @return
      */
     @PostMapping(value = "/login")
-    public ResponseResult login(@RequestBody LoginParam loginParam){
+    public ResponseResult login(@Validated @RequestBody LoginParam loginParam, BindingResult bindingResult){
+
+        // 校验字段
+        if(bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            fieldErrors.forEach(fieldError -> {
+                //日志打印不符合校验的字段名和错误提示
+                log.warn("error field is : {} ,message is : {}", fieldError.getField(), fieldError.getDefaultMessage());
+            });
+            return new ResponseResult(ResponseCode.PARAM_NOT_COMPLETE.code(), ResponseCode.PARAM_NOT_COMPLETE.message());
+        }
+
         // 封装返回的结果集
         Map<String, Object> result = Maps.newHashMap();
         // 通过 HTTP 客户端请求登录接口

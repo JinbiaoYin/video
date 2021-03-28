@@ -2,6 +2,7 @@ package top.yinjinbiao.video.admin.service.impl;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
 	@Override
 	public List<SysPermission> list() {
-		return mapper.list();
+		return mapper.selectList(new QueryWrapper<SysPermission>().eq("is_deleted", false));
 	}
 
 }

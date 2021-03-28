@@ -1,11 +1,8 @@
 package top.yinjinbiao.video.admin.mapper;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.yinjinbiao.video.domain.SysPermission;
 
-public interface SysPermissionMapper {
-
-	List<SysPermission> list();
+public interface SysPermissionMapper extends BaseMapper<SysPermission>  {
 
 }

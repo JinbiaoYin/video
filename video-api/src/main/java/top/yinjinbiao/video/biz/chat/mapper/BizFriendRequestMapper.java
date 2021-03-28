@@ -1,13 +1,13 @@
 package top.yinjinbiao.video.biz.chat.mapper;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-
 import top.yinjinbiao.video.domain.BizFriendRequest;
 import top.yinjinbiao.video.domain.vo.SysUserVO;
 
-public interface BizFriendRequestMapper {
+import java.util.List;
+
+public interface BizFriendRequestMapper extends BaseMapper<BizFriendRequest> {
 
     int deleteByPrimaryKey(Long id);
 

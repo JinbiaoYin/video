@@ -1,44 +1,44 @@
 package top.yinjinbiao.video.admin.service.impl;
 
-import java.io.IOException;
-import java.util.List;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 import top.yinjinbiao.video.admin.mapper.SysUserMapper;
 import top.yinjinbiao.video.admin.service.SysUserService;
 import top.yinjinbiao.video.domain.SysPermission;
 import top.yinjinbiao.video.domain.SysUser;
-import top.yinjinbiao.video.domain.vo.SysUserVO;
-import top.yinjinbiao.video.upload.service.UploadService;
+
+import java.util.List;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
-	
-	@Autowired
-	private UploadService uploadService;
+
+//	@Autowired
+//	private UploadService uploadService;
 
     @Autowired
     private SysUserMapper sysUserMapper;
 
-    public List<SysPermission> listByUsername(String listByUsername) {
-        return sysUserMapper.listByUsername(listByUsername);
+	@Override
+	public int save(SysUser sysUser) {
+		return sysUserMapper.insert(sysUser);
+	}
+
+	public List<SysPermission> listSysPermissionByUsername(String username) {
+        return sysUserMapper.listSysPermissionByUsername(username);
     }
 
     @Override
     public SysUser findByUsername(String username) {
-        return sysUserMapper.findByUsername(username);
+        return sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
     }
 
 	@Override
 	public SysUser findByUserId(Long id) {
-		return sysUserMapper.selectByPrimaryKey(id);
+		return sysUserMapper.selectById(id);
 	}
 
-	@Override
+/*	@Override
 	@Transactional
 	public SysUserVO uploadFaceImg(Long id, MultipartFile file) {
 		String faceImgUrl = null;
@@ -48,9 +48,9 @@ public class SysUserServiceImpl implements SysUserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		SysUser sysUser = sysUserMapper.selectByPrimaryKey(id);
+		SysUser sysUser = sysUserMapper.selectById(id);
 		sysUser.setFaceImg(faceImgUrl);
-		sysUserMapper.updateByPrimaryKeySelective(sysUser);
+		sysUserMapper.updateById(sysUser);
 		return new SysUserVO(sysUser.getId(),sysUser.getNickname(),sysUser.getUsername(),faceImgUrl);
-	}
+	}*/
 }

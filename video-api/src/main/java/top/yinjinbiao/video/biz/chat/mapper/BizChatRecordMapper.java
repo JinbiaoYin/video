@@ -1,10 +1,11 @@
 package top.yinjinbiao.video.biz.chat.mapper;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.yinjinbiao.video.domain.BizChatRecord;
 
-public interface BizChatRecordMapper {
+import java.util.List;
+
+public interface BizChatRecordMapper extends BaseMapper<BizChatRecord> {
 
     int deleteByPrimaryKey(Long id);
    

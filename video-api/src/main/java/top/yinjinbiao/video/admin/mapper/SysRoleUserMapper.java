@@ -1,6 +1,9 @@
 package top.yinjinbiao.video.admin.mapper;
 
-public interface SysRoleUserMapper {
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.yinjinbiao.video.domain.SysRoleUser;
+
+public interface SysRoleUserMapper extends BaseMapper<SysRoleUser> {
 
 
 }

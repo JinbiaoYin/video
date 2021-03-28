@@ -3,7 +3,6 @@ package top.yinjinbiao.video.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import top.yinjinbiao.video.common.domain.BaseDomain;
 
 /**
 * @author yin.jinbiao

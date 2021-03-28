@@ -1,17 +1,8 @@
 package top.yinjinbiao.video.upload.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.yinjinbiao.video.domain.SysFile;
 
-public interface SysFileMapper {
-    int deleteByPrimaryKey(Long id);
+public interface SysFileMapper extends BaseMapper<SysFile> {
 
-    int insert(SysFile record);
-
-    int insertSelective(SysFile record);
-
-    SysFile selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(SysFile record);
-
-    int updateByPrimaryKey(SysFile record);
 }

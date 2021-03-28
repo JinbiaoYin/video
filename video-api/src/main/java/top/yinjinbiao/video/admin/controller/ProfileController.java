@@ -34,11 +34,11 @@ public class ProfileController {
      * 上传头像，base64位编码字符串
      * @return
      */
-    @PostMapping("/uploadFaceImg")
+/*    @PostMapping("/uploadFaceImg")
     public ResponseResult<SysUserVO> uploadFaceImg(MultipartFile file){
     	Long userId = UserLocalUtil.getCurrentUserId();
     	SysUserVO user = sysUserService.uploadFaceImg(userId,file);
 		return new ResponseResult<>(HttpStatus.OK.value(),"上传成功",user);
-    }
+    }*/
 
 }

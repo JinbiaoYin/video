@@ -38,7 +38,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
         // 根据账号查询权限列表
-        List<SysPermission> sysPermissionList = sysUserService.listByUsername(username);
+        List<SysPermission> sysPermissionList = sysUserService.listSysPermissionByUsername(username);
         for (SysPermission sysPermission : sysPermissionList) {
             authorities.add(new SimpleGrantedAuthority(sysPermission.getCode()));
         }

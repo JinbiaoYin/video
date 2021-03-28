@@ -1,6 +1,8 @@
-package top.yinjinbiao.video.domain.bo;
+package top.yinjinbiao.video.domain.query;
 
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @Description 登录参数
@@ -11,6 +13,9 @@ import lombok.Data;
 @Data
 public class LoginParam {
 
+    @NotBlank
     String username;
+
+    @NotBlank
     String password;
 }

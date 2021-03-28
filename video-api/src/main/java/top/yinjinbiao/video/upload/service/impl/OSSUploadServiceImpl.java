@@ -67,12 +67,12 @@ public class OSSUploadServiceImpl implements UploadService {
     @Override
     @Transactional
     public int delete(Long id) {
-        SysFile sysFile = sysFileMapper.selectByPrimaryKey(id);
+        SysFile sysFile = sysFileMapper.selectById(id);
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         ossClient.deleteObject(bucketName, sysFile.getCurrentName());
         ossClient.shutdown();
 
         // 删除业务表中的文件记录
-        return sysFileMapper.deleteByPrimaryKey(id);
+        return sysFileMapper.deleteById(id);
     }
 }

@@ -16,7 +16,7 @@ public class SysFileServiceImpl implements SysFileService {
 
     @Transactional(readOnly = false)
     public int deleteByPrimaryKey(Long id) {
-        return sysFileMapper.deleteByPrimaryKey(id);
+        return sysFileMapper.deleteById(id);
     }
 
     @Transactional(readOnly = false)
@@ -26,21 +26,21 @@ public class SysFileServiceImpl implements SysFileService {
 
     @Transactional(readOnly = false)
     public int insertSelective(SysFile record) {
-        return sysFileMapper.insertSelective(record);
+        return sysFileMapper.insert(record);
     }
 
     public SysFile selectByPrimaryKey(Long id) {
-        return sysFileMapper.selectByPrimaryKey(id);
+        return sysFileMapper.selectById(id);
     }
 
     @Transactional(readOnly = false)
     public int updateByPrimaryKeySelective(SysFile record) {
-        return sysFileMapper.updateByPrimaryKeySelective(record);
+        return sysFileMapper.updateById(record);
     }
 
     @Transactional(readOnly = false)
     public int updateByPrimaryKey(SysFile record) {
-        return sysFileMapper.updateByPrimaryKey(record);
+        return sysFileMapper.updateById(record);
     }
 
 }
